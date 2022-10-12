@@ -1,11 +1,29 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": ".",
+    "paths": {
+      // "@DAL/*": ["src/DAL/*"],
+      // "@DALtypes/*": ["src/interfaces/DAL/*"],
+      // "@img/*": ["src/images/*"],
+      // "@components": ["src/components/"],
+      // "@mobx": ["src/stores/index"],
+      // "@styleVar": ["src/styles/variables.scss"],
+      // "@interfaces/*": ["src/interfaces/*"],
+      // "@helpers": ["src/helpers/index"],
+      // "@hooks": ["src/hooks/index"]
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -15,6 +33,13 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next"
+  ]
 }
