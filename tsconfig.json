@@ -3,14 +3,10 @@
     "target": "es5",
     "baseUrl": ".",
     "paths": {
+      "components": ["src/components/index"],
       "services/*": ["src/services/*"],
-      // "@DALtypes/*": ["src/interfaces/DAL/*"],
-      // "@img/*": ["src/images/*"],
       "hooks": ["src/hooks/index"],
-      // "@mobx": ["src/stores/index"],
-      // "@styleVar": ["src/styles/variables.scss"],
       "types/*": ["src/types/*"],
-      // "@hooks": ["src/hooks/index"]
     },
     "lib": [
       "dom",
@@ -21,8 +17,9 @@
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -35,7 +32,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "/public"
   ],
   "exclude": [
     "node_modules",

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import type { Location } from 'types/hooks.type'
+import type { Location } from 'src/types/hooks.type'
 
 const useLocation = () => {
   const [location, setLocation] = useState<Location | string>('')

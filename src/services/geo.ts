@@ -1,4 +1,5 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios"
+import { IGetCityResponse } from "types/interfaces/services/services.interface"
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_GEO_API_URL,
@@ -15,15 +16,19 @@ class GeoService {
     this.apiInstance = api
   }
 
-  getAllCities = (latitude: number, longitude: number) => {
+  getMyCity = async (latitude: number, longitude: number) => {
     const lat = latitude > 0 ? latitude : -latitude
     const lon = longitude > 0 ? `+${longitude}` : -longitude
     
-    const response = this.apiInstance.get('/cities', { params: {location: `${lat}${lon}` } }).then((res) => {
-      return res
+    const myCityResponse = await this.apiInstance.get<IGetCityResponse>('/cities', {
+      params: {
+        location: `${lat}${lon}`,
+        limit: 1,
+        minPopulation: 1000000
+      }
     })
 
-    return response
+    return myCityResponse
   }
 }
 
