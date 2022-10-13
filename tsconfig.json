@@ -3,14 +3,13 @@
     "target": "es5",
     "baseUrl": ".",
     "paths": {
-      // "@DAL/*": ["src/DAL/*"],
+      "services/*": ["src/services/*"],
       // "@DALtypes/*": ["src/interfaces/DAL/*"],
       // "@img/*": ["src/images/*"],
-      // "@components": ["src/components/"],
+      "hooks": ["src/hooks/index"],
       // "@mobx": ["src/stores/index"],
       // "@styleVar": ["src/styles/variables.scss"],
-      // "@interfaces/*": ["src/interfaces/*"],
-      // "@helpers": ["src/helpers/index"],
+      "types/*": ["src/types/*"],
       // "@hooks": ["src/hooks/index"]
     },
     "lib": [
