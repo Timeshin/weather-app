@@ -1,12 +1,15 @@
-import React, { FC } from 'react'
+import React from 'react'
 import Image from 'next/image'
-import { IWeatherData } from 'types/interfaces/services/services.interface'
+import { observer } from 'mobx-react-lite'
+import { useStores } from '@mobx'
+import { GetServerSideProps } from 'next'
 
-interface IWeatherCard {
-  weather: IWeatherData
-}
-
-const WeatherCard: FC<IWeatherCard> = ({ weather }) => {
+const WeatherCard = observer(() => {
+  const {
+    weatherStore: {
+      weather
+    }
+  } = useStores()
 
   if (!weather) return null
 
@@ -54,6 +57,17 @@ const WeatherCard: FC<IWeatherCard> = ({ weather }) => {
       </div>
     </div>
   )
+})
+
+export const getServerSideProps: GetServerSideProps = async (props) => {
+  return {
+    props: {
+      error: {
+        message: 'one',
+        data: 'data'
+      }
+    }
+  }
 }
 
 export default WeatherCard

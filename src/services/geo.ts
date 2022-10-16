@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios"
-import { IGetCityResponse } from "types/interfaces/services/services.interface"
+import { IGetCityResponse } from "types/interfaces/services/geo.interface"
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_GEO_API_URL,

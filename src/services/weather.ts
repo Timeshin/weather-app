@@ -1,5 +1,5 @@
-import axios, { AxiosInstance } from "axios"
-import { IGetCurrentWeatherResponse, IGetForecastDataResponse } from "types/interfaces/services/services.interface"
+import axios, { AxiosInstance } from 'axios'
+import { ICurrentWeather, IForecastData } from 'types/interfaces/services/weather.interface'
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_WEATHER_API_URL,
@@ -16,7 +16,7 @@ class WeatherServices {
   }
 
   getCurrentWeather = async (cityName: string) => {
-    const { data } = await this.apiInstance.get<IGetCurrentWeatherResponse>('/weather', {
+    const { data } = await this.apiInstance.get<ICurrentWeather>('/weather', {
       params: {
         q: cityName,
         units: 'metric'
@@ -27,7 +27,7 @@ class WeatherServices {
   }
 
   getForecast = async (cityName: string) => {
-    const { data } = await this.apiInstance.get<IGetForecastDataResponse>('/forecast', {
+    const { data } = await this.apiInstance.get<IForecastData>('/forecast', {
       params: {
         q: cityName,
         units: 'metric'

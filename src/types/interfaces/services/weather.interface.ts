@@ -1,25 +1,5 @@
 import { CityForecast } from "types/services.type"
 
-export interface ICityData {
-  city: string
-  country: string
-  countryCode: string
-  distance: number
-  id: number
-  latitude: number
-  longitude: number
-  name: string
-  population: number
-  region: string
-  regionCode: string
-  type: string
-  wikiDataId: string
-}
-
-export interface IGetCityResponse {
-  data: ICityData[]
-}
-
 interface ITemperature {
   feels_like: number
   grnd_level: number
@@ -75,7 +55,7 @@ export interface IWeatherData {
   wind: IWind
 }
 
-export interface IGetCurrentWeatherResponse extends IWeatherData {
+export interface ICurrentWeather extends IWeatherData {
   clouds: {
     all: number
   }
@@ -99,7 +79,7 @@ export interface IForecastList {
   wind: IWind
 }
 
-export interface IGetForecastDataResponse {
+export interface IForecastData {
   city: CityForecast
   cnt: number
   cod: string
