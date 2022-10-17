@@ -20,7 +20,7 @@ const MainPage = observer(() => {
     if(typeof location === 'string') {
       errorStore.errorOccured(location)
 
-      geoStore.setCurrentCity(window.localStorage.getItem('city'))
+      geoStore.setCurrentCity(window.localStorage.getItem('city') || 'Minsk')
 
       return
     }
@@ -37,7 +37,7 @@ const MainPage = observer(() => {
   }, [weatherStore, geoStore.currentCity])
 
   return (
-    <div className='pb-4'>
+    <>
       <div className='flex justify-center gap-10 mt-10'>
         {
           geoStore.cities.map((city) => (
@@ -55,12 +55,12 @@ const MainPage = observer(() => {
           :
           (
             <>
-              <WeatherCard />
+              <WeatherCard clickableCard />
               <ForecastList />
             </>
           )
       }
-    </div>
+    </>
   )
 })
 

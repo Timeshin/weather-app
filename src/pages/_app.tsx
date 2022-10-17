@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import { observer } from 'mobx-react-lite'
-import { RootStoreProvider, useStores } from '@mobx'
+import { useStores } from '@mobx'
 
 import { ErrorAlert } from 'components'
 
@@ -17,23 +17,29 @@ interface IPageProps {
 
 const MyApp = observer(({ Component, pageProps }: AppProps<IPageProps>) => { 
   const {
-    errorStore: {
-      showErrorMessage
-    }
+    errorStore
   } = useStores()
+
+  useEffect(() => {
+    if(!pageProps.error) return
+
+    errorStore.errorOccured(pageProps.error.statusCode, pageProps.error.message)
+  }, [errorStore, pageProps.error])
   
   return (
-    <RootStoreProvider>
+    <>
       <Head>
         <title>Weather</title>
         <link rel="icon" href="/assets/images/weather.png" />
         <meta name="description" content='forecast app' />
       </Head>
       {
-        showErrorMessage && <ErrorAlert />
+        errorStore.showErrorMessage && <ErrorAlert />
       }
-      <Component {...pageProps} />
-    </RootStoreProvider>
+      <div className='my-4'>
+        <Component {...pageProps} />
+      </div>
+    </>
   )
 })
 

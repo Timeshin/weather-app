@@ -3,11 +3,12 @@
     "target": "es5",
     "baseUrl": ".",
     "paths": {
+      "utils": ["src/utils/index"],
       "components": ["src/components/index"],
       "services/*": ["src/services/*"],
       "hooks": ["src/hooks/index"],
       "types/*": ["src/types/*"],
-      "@mobx": ["src/stores/index"]
+      "@mobx": ["src/stores/index"],
     },
     "lib": [
       "dom",

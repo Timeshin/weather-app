@@ -1,22 +1,39 @@
-import React from 'react'
+import React, { FC } from 'react'
 import Image from 'next/image'
 import { observer } from 'mobx-react-lite'
 import { useStores } from '@mobx'
 import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 
-const WeatherCard = observer(() => {
+interface IWeatherCard {
+  clickableCard?: boolean 
+}
+
+const WeatherCard: FC<IWeatherCard> = observer(({ clickableCard }) => {
   const {
     weatherStore: {
       weather
+    },
+    geoStore: {
+      currentCity
     }
   } = useStores()
+  const router = useRouter()
+
+  const onNavigateBackHandler = () => {
+    if(!clickableCard) return
+
+    router.push(currentCity)
+  }
 
   if (!weather) return null
 
   return (
     <div className='flex justify-center mt-10'>
       <div
-        className='card  min-w-sm max-w-sm border border-gray-100  transition-shadow test  shadow-lg hover:shadow-shadow-xl w-full bg-green-600 text-purple-50 rounded-md'>
+        className={`card min-w-sm max-w-sm border border-gray-100  transition-shadow test  shadow-lg hover:shadow-shadow-xl w-full bg-green-600 text-purple-50 rounded-md ${clickableCard && 'cursor-pointer border-2 border-solid hover:border-blue-600'}`}
+        onClick={onNavigateBackHandler}  
+      >
         <h2 className='text-md mb-2 px-4 pt-4'>
           <div className='flex justify-between'>
             <div className='badge relative top-0'>

@@ -42,9 +42,10 @@ export interface IWeatherData {
   clouds: {
     all: number
   }
+  dt: number
+  dt_txt: string
   cod: number
   coord: ICords
-  dt: number
   id: number
   main: ITemperature
   name: string
@@ -53,14 +54,6 @@ export interface IWeatherData {
   visibility: number
   weather: IWeather[]
   wind: IWind
-}
-
-export interface ICurrentWeather extends IWeatherData {
-  clouds: {
-    all: number
-  }
-  dt: number
-  dt_txt: string
 }
 
 export interface IForecastList {
@@ -77,6 +70,7 @@ export interface IForecastList {
   visibility: number
   weather: IWeather[]
   wind: IWind
+  dailyForecast?: IForecastList[]
 }
 
 export interface IForecastData {
