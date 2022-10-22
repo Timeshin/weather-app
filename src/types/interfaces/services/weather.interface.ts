@@ -71,7 +71,7 @@ export interface IForecastList {
   weather: IWeather[]
   wind: IWind
   dailyForecast?: IForecastList[]
-  numWeekDay?: number
+  weekDay?: string
 }
 
 export interface IForecastData {

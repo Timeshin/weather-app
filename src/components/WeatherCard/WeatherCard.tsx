@@ -1,19 +1,16 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
-import { observer } from 'mobx-react-lite'
 import { useStores } from '@mobx'
-import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
+import { IWeatherData } from 'types/interfaces/services/weather.interface'
 
 interface IWeatherCard {
+  weather: IWeatherData
   clickableCard?: boolean 
 }
 
-const WeatherCard: FC<IWeatherCard> = observer(({ clickableCard }) => {
+const WeatherCard: FC<IWeatherCard> = ({ clickableCard, weather }) => {
   const {
-    weatherStore: {
-      weather
-    },
     geoStore: {
       currentCity
     }
@@ -23,7 +20,7 @@ const WeatherCard: FC<IWeatherCard> = observer(({ clickableCard }) => {
   const onNavigateBackHandler = () => {
     if(!clickableCard) return
 
-    router.push(currentCity)
+    router.push(`forecast/${currentCity}`)
   }
 
   if (!weather) return null
@@ -74,17 +71,6 @@ const WeatherCard: FC<IWeatherCard> = observer(({ clickableCard }) => {
       </div>
     </div>
   )
-})
-
-export const getServerSideProps: GetServerSideProps = async (props) => {
-  return {
-    props: {
-      error: {
-        message: 'one',
-        data: 'data'
-      }
-    }
-  }
 }
 
 export default WeatherCard

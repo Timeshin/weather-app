@@ -14,7 +14,7 @@ class GeoStore {
     this.rootStore = rootStore
     makeAutoObservable(this, {
       getMyCity: flow
-  })
+    })
   }
 
   setCurrentCity(city: string) {
@@ -25,13 +25,12 @@ class GeoStore {
   *getMyCity(latitude: number, longitude: number) {
     try {
       const { data: { data } } = yield geo.getMyCity(latitude, longitude)
-      const cityResponse = data[0] 
-      
+      const cityResponse = data[0]
+
       if(!window.localStorage.getItem('city')) {
         this.setCurrentCity(cityResponse.city)
-        window.localStorage.setItem('city', cityResponse.city)
       } else {
-        // setTimeOut because of api limits
+        // setTimeout because of api limits
         setTimeout(() => {
           this.setCurrentCity(window.localStorage.getItem('city'))
         }, 1000)
@@ -42,7 +41,7 @@ class GeoStore {
       this.cities = [...this.cities, cityResponse.city]
     } catch (error) {
       const { message, response } = error as AxiosError<{ message?: string }>
-      
+
       this.rootStore.errorStore.errorOccured(message, response?.data?.message)
     }
   }

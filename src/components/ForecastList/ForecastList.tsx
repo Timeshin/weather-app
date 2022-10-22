@@ -1,21 +1,14 @@
 import React, { FC, useMemo } from 'react'
-import { observer } from 'mobx-react-lite'
-import { useStores } from '@mobx'
-import { IForecastList } from 'types/interfaces/services/weather.interface'
+import { IForecastData, IForecastList } from 'types/interfaces/services/weather.interface'
 
 import { ForecastItem } from 'components'
 
 interface IForecastListProps {
+  forecast: IForecastData
   showFullForecast?: boolean
 }
 
-const ForecastList: FC<IForecastListProps> = observer(({ showFullForecast }) => {
-  const {
-    weatherStore: {
-      forecast
-    }
-  } = useStores()
-
+const ForecastList: FC<IForecastListProps> = ({ showFullForecast, forecast }) => {
   const filteredForecast = useMemo(() => {
     if(!forecast) return
 
@@ -35,7 +28,11 @@ const ForecastList: FC<IForecastListProps> = observer(({ showFullForecast }) => 
 
       if(alreadyExistDay && acc.length) return acc
 
-      return [...acc, {...forecastItem, numWeekDay: date }]
+      const weekDay = new Date(forecastItem.dt_txt).toLocaleString(
+        'default', { weekday: 'long' }
+      )
+
+      return [...acc, {...forecastItem, weekDay }]
     }, [])
 
     return forecastDays
@@ -52,6 +49,6 @@ const ForecastList: FC<IForecastListProps> = observer(({ showFullForecast }) => 
       }
     </div>
   )
-})
+}
 
 export default ForecastList

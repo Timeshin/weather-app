@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react'
-import { weekDays } from '../ForecastItem/ForecastItem.meta'
 import Image from 'next/image'
 import { IForecastList } from 'types/interfaces/services/weather.interface'
 import { ForecastDropDown } from 'components'
@@ -8,7 +7,7 @@ interface IForecastItem {
   forecast: IForecastList
 }
 
-const ForecastItem: FC<IForecastItem> = ({ forecast: { main, weather, dailyForecast, numWeekDay } }) => {
+const ForecastItem: FC<IForecastItem> = ({ forecast: { main, weather, dailyForecast, weekDay } }) => {
   const [openHoursForecast, setOpenHoursForecast] = useState(false)
 
   const onOpenForecastHandler = () => {
@@ -31,7 +30,7 @@ const ForecastItem: FC<IForecastItem> = ({ forecast: { main, weather, dailyForec
         <div className='flex items-center gap-4'>
           <Image src={`/assets/images/${weather[0].icon}.png`} alt='icon' width={40} height={40} />
           <span>
-            {weekDays[numWeekDay]}
+            {weekDay}
           </span>
         </div>
         <div className='flex justify-center items-center gap-3'>
