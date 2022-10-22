@@ -4,6 +4,7 @@ import Button from './UI/Button/Button'
 import ForecastList from './ForecastList/ForecastList'
 import ForecastItem from './ForecastItem/ForecastItem'
 import ForecastDropDown from './ForecastDropDown/ForecastDropDown'
+import ErrorWrapper from './ErrorWrapper/ErrorWrapper'
 
 export {
   ErrorAlert,
@@ -11,5 +12,6 @@ export {
   Button,
   ForecastList,
   ForecastItem,
-  ForecastDropDown
+  ForecastDropDown,
+  ErrorWrapper
 }

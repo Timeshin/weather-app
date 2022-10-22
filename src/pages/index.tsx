@@ -4,7 +4,7 @@ import { useStores } from '@mobx'
 import { flowResult } from 'mobx'
 import { observer } from 'mobx-react-lite'
 
-import { Button, WeatherCard, ForecastList } from 'components'
+import { Button, WeatherCard, ForecastList, ErrorWrapper } from 'components'
 
 const MainPage = observer(() => {
   const {
@@ -37,7 +37,7 @@ const MainPage = observer(() => {
   }, [weatherStore, geoStore.currentCity])
 
   return (
-    <>
+    <ErrorWrapper>
       <div className='flex justify-center gap-10 mt-10'>
         {
           geoStore.cities.map((city) => (
@@ -60,7 +60,7 @@ const MainPage = observer(() => {
             </>
           )
       }
-    </>
+    </ErrorWrapper>
   )
 })
 

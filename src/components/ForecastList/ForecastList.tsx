@@ -4,7 +4,6 @@ import { useStores } from '@mobx'
 import { IForecastList } from 'types/interfaces/services/weather.interface'
 
 import { ForecastItem } from 'components'
-import { toJS } from 'mobx'
 
 interface IForecastListProps {
   showFullForecast?: boolean
@@ -21,24 +20,26 @@ const ForecastList: FC<IForecastListProps> = observer(({ showFullForecast }) => 
     if(!forecast) return
 
     const forecastDays = forecast.list.reduce((acc: IForecastList[], forecastItem) => {
-      const date = new Date(forecastItem.dt_txt).getDay()
+      const currentDate = new Date().getDate()
+      let date = new Date(forecastItem.dt_txt).getDate() - currentDate
 
-      if(!(date > 0 && (date <= 3 || showFullForecast))) return acc
+      date = (date !== 0 && date % 6 === 0) ? 0 : date
 
-      const alreadyExistDay = acc.some((accForecast) => new Date(accForecast.dt_txt).getDay() === date)
-      
-      if(showFullForecast && alreadyExistDay && acc[date - 1]) {
-        acc[date - 1].dailyForecast = [...acc[date - 1].dailyForecast || [], forecastItem]
+      if(!(date >= 0 && (date < 3 || showFullForecast))) return acc
+
+      const alreadyExistDay = acc.some((accForecast) => new Date(accForecast.dt_txt).getDate() - currentDate === date)
+
+      if(alreadyExistDay && acc[date]) {
+        acc[date].dailyForecast = [...acc[date].dailyForecast || [], forecastItem]
       }
 
       if(alreadyExistDay && acc.length) return acc
 
-
-      return [...acc, forecastItem]
+      return [...acc, {...forecastItem, numWeekDay: date }]
     }, [])
 
     return forecastDays
-  }, [forecast, showFullForecast]) 
+  }, [forecast, showFullForecast])
 
   if(!forecast) return null
 
@@ -46,7 +47,7 @@ const ForecastList: FC<IForecastListProps> = observer(({ showFullForecast }) => 
     <div className='flex flex-col items-center justify-center mt-8 gap-2 w-full'>
       {
         filteredForecast.map((forecast) => (
-          <ForecastItem key={forecast.dt} forecast={forecast} showFullForecast={showFullForecast} />
+          <ForecastItem key={forecast.dt} forecast={forecast} />
         ))
       }
     </div>

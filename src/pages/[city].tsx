@@ -5,7 +5,7 @@ import { IWeatherData, IForecastData } from 'types/interfaces/services/weather.i
 import { observer } from 'mobx-react-lite'
 import { useStores } from '@mobx'
 import Head from 'next/head'
-import { Button, ForecastList, WeatherCard } from 'components'
+import { Button, ErrorWrapper, ForecastList, WeatherCard } from 'components'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -36,31 +36,33 @@ const CityForecast: FC<ICityForecast> = observer(({ forecast, weather, city }) =
   }
 
   return (
-    <>
+    <ErrorWrapper>
       <Head>
         <title>{forecast.city.name}</title>
         <meta name='description' content={`${forecast.city} forecast`} />
       </Head>
-      <div className='absolute top-3 left-3 text-lg'>
-        <Link href='/'>Go back</Link>
-      </div>
-      <div className='flex flex-col items-center'>
-        <div className='flex items-center gap-4'>
-          <input
-            type='text'
-            onChange={onSearchCityHandler}
-            value={searchValue}
-            className='w-full max-w-xl rounded-md'
-          />
-          <Button value='Search' onClick={onClickHandler} />
+      <div className='mt-10'>
+        <div className='absolute top-3 left-3 text-lg'>
+          <Link href='/'>Go back</Link>
         </div>
-        <h1 className='mt-5 text-4xl'>
-          {forecast.city.name}
-        </h1>
-        <WeatherCard />
-        <ForecastList showFullForecast />
+        <div className='flex flex-col items-center'>
+          <div className='flex items-center gap-4'>
+            <input
+              type='text'
+              onChange={onSearchCityHandler}
+              value={searchValue}
+              className='w-full max-w-xl rounded-md'
+            />
+            <Button value='Search' onClick={onClickHandler} />
+          </div>
+          <h1 className='mt-5 text-4xl'>
+            {forecast.city.name}
+          </h1>
+          <WeatherCard />
+          <ForecastList showFullForecast />
+        </div>
       </div>
-    </>
+    </ErrorWrapper>
   )
 })
 
